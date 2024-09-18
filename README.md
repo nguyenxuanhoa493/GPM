@@ -1,7 +1,8 @@
-Thư viên python dành cho GPM login
-- lấy danh sách profiles
-- lấy thông tin chi tiết một profile
-- start profile để lấy port remote
-- close profile
-  
+Thư viện python dành cho GPM login
+
+-   Lấy danh sách profiles
+-   Lấy thông tin chi tiết một profile
+-   Start profile để lấy port remote
+-   Close profile
+
 https://t.me/xuanhoa493

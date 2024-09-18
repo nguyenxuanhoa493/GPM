@@ -1,12 +1,14 @@
 import requests
 from dataclasses import dataclass
 
+import conf
+
 
 @dataclass(kw_only=True)
 class Gpm:
-    host: str = "127.0.0.1"
-    port: int = 12087
-    ver: int = 3
+    host: str = conf.gpm_host
+    port: int = conf.gpm_port
+    ver: int = conf.gpm_ver
 
     def __post_init__(self):
         self.api = f"http://{self.host}:{self.port}/api/v{self.ver}"
@@ -20,7 +22,7 @@ class Gpm:
 
     def send(self, url: str = "", payload: dict = {}) -> dict:
         url = f"{self.api}{url}"
-        print(url)
+        # print(url)
         try:
             response = requests.request("GET", url, params=payload)
         except:
@@ -86,8 +88,8 @@ class Gpm:
         self,
         profile_id: str,
         win_scale: float = 1,
-        win_pos: str = "0,0",
-        win_size: str = "800,600",
+        win_pos: str = "",
+        win_size: str = "",
     ) -> dict:
         """
         Start a profile from GPM.
@@ -109,7 +111,7 @@ class Gpm:
             print(f"Profile {profile_id} {response['message']}.")
             return {}
 
-    def close_profile(self, profile_id: str) -> dict:
+    def close_profile(self, profile_id: str) -> bool:
         """
         Close a profile from GPM.
 
@@ -121,9 +123,7 @@ class Gpm:
         """
         response = self.send(f"/profiles/close/{profile_id}")
         if response["success"]:
-            return response["data"]
+            return True
         else:
             print(f"Profile {profile_id} {response['message']}.")
-            return {}
-
-
+            return False
