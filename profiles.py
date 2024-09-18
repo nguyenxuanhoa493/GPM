@@ -28,16 +28,15 @@ class Profile:
         options = Options()
         options.add_argument(f"--user-data-dir={info['browser_location']}")
         options.add_argument("--disable-notifications")
-        options.add_argument("--start-maximized")
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
         options.add_experimental_option(
             "debuggerAddress", info["remote_debugging_address"]
         )
         service = Service(info["driver_path"])
         self.driver = webdriver.Chrome(service=service, options=options)
         print(f"start {self.detail['name']} on {info['remote_debugging_address']}")
+
+    def close(self):
+        gpm.close_profile(profile_id=self.id)
 
     def open_url(self, url):
         self.driver.get(url)
