@@ -1,4 +1,4 @@
-import requests, time
+import requests
 from dataclasses import dataclass
 
 
@@ -126,6 +126,4 @@ class Gpm:
             print(f"Profile {profile_id} {response['message']}.")
             return {}
 
-
-gpm = Gpm(port=13427)
 
