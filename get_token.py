@@ -1,13 +1,10 @@
 import json
 import concurrent.futures
-from gpm import Gpm
-from profiles import Profile
+from profiles import Profile, gpm
 from conf import number_of_concurrent_tasks
 
 with open("token.txt", "w"):
     pass
-
-gpm = Gpm(port=16911)
 
 
 def get_token(i):
@@ -23,9 +20,9 @@ def get_token(i):
             print(f"{temp.detail['name']} | {token}")
             with open("token.txt", "a") as f:
                 f.write(f"{temp.detail['name']} | {token}\n")
-        temp.close()
     except Exception as e:
-        temp.close()
+        pass
+    temp.close()
 
 
 def run_concurrent_tasks(task_function, num_threads, repeat_tasks, start, end):
